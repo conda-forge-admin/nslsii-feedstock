@@ -1,6 +1,5 @@
 {% set name = "nslsii" %}
-{% set version = "0.11.9" %}
-{% set python_min = "3.10" %}
+{% set version = "0.12.0" %}
 
 package:
   name: {{ name|lower }}
@@ -8,7 +7,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/nslsii-{{ version }}.tar.gz
-  sha256: 8b703b7e0d51b595ec5498016c1c7014e97231320d8362c69718a82061b3ab59
+  sha256: b8f2293e4f5bdfa414edd80f9b0757d0732333d16326c53699f9407af8bb647d
 
 build:
   entry_points:
@@ -23,9 +22,10 @@ requirements:
   host:
     - python {{ python_min }}
     - pip
-    - setuptools
+    - hatchling
+    - hatch-vcs
   run:
-    - python >={{ python_min }}
+    - python >={{ python_min }},<3.14
     - appdirs
     - bluesky-base >=1.8.1
     - bluesky-kafka >=0.8.0
@@ -42,17 +42,17 @@ requirements:
     - numpy
     - opencv
     - ophyd
+    - ophyd-async >=0.21.3
     - packaging
     - pillow
     - psutil
     - pycryptodome
     - pyolog
+    - pyyaml
     - recordwhat
     - redis-json-dict
     - redis-py
     - requests
-    - setuptools
-    - shortuuid
 
 test:
   requires:
@@ -90,14 +90,17 @@ test:
     - nslsii.iocs.utils
     - nslsii.kafka_utils
     - nslsii.motors.delta_tau
-    # - nslsii.ophyd_async
-    # - nslsii.ophyd_async.providers
+    - nslsii.ophyd_async
+    - nslsii.ophyd_async.devices
+    - nslsii.ophyd_async.providers
     - nslsii.plans
     - nslsii.plans.maia
+    - nslsii.proposals
     - nslsii.sync_experiment
     - nslsii.sync_experiment.sync_experiment
     - nslsii.temperature_controllers
     - nslsii.transforms
+    - nslsii.utils
   commands:
     - sync-experiment --help
     - what-is-ioc --help
